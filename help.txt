@@ -1,0 +1,45 @@
+DFFDB.Database.createTable(tableName, ColumnData1, ColumnData2(optional), ...(optional)) {
+
+	Creates a table for use in a database.
+
+	PARAMATERS:
+		tableName:
+			The name of the new table
+			
+		ColumnDataN:
+			An array or string used to describe each column in the table.
+			For example, if you want a table with two columns named "firstName" and "Lastname", you could use this:
+			db.createTable("myColumn", "firstName", "lastName");
+				
+			You can define extra paramaters for each column using an array:
+				defaultValue:
+					When a value for a column is not specified during insertRow(), the defaultValue is placed instead. If no defaultValue is specified, null is inserted.
+					In this example, a default value is specified for each column:
+					db.createTable("myColumn", ["firstName", "John"], ["lastName", "Doe"]);
+				
+				isTypeStrict:
+					A boolean which determines if a column will disallow multiple types. The chosen type is determined by the type of the defaultValue.
+					Only Columns with strict mode set to true can be sorted via sort operators.
+					For example, if you only want a field to contain only numbers: 
+					db.createTable("Customers", ["name", "John Doe"], ["cashflow", 0, true]);
+					Attempting to insert anything other than a number into the "cashflow" column will result in either an error, or the default value. (see: insertRow())
+					By default, strict mode is off.
+					
+				
+DFFDB.Database.insertRow(tableName_, rowData_, ignoreStrict(optional))
+
+	Inserts a row of data into a table.
+
+	PARAMATERS:
+		tableName_:
+			The name of the table to insert the row into.
+			
+		rowData:
+			An Object of data to insert.
+			For example, if you had a table with two columns, "firstName" and "lastName", your arguments would look like:
+			db.insertRow("myTable", {firstName : "Tim", lastName : "Heidecker");
+			Any columns left undefined will either be set to their specified defaults, or null if no default was set.
+			
+		ignoreStrict:
+			Will insert the default value of a column instead of throwing a fatal error when typeStrict is true and a type conflict occurs.
+			Default: false

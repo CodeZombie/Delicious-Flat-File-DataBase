@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<head>
+	<meta charset="utf-8">
+	<script type="text/javascript" src="dffdb.js"></script>
+	<script type="text/javascript">
+		function init() {
+			//create a new database
+			db = new DFFDB.Database("myDB");
+			
+			//insert a table with two columns, one with a set default and Strict mode on, the other with a default and Strict Mode off
+			db.createTable("Customers", ["firstName", "John", true], ["lastName", "Doe"]);
+			
+			//normal row insertion:
+			db.insertRow("Customers", {firstName: "Daryl", lastName: "Smith"});
+				//output: Daryl Smith
+			
+			//row insertion with defaults:
+			db.insertRow("Customers", {firstName: "Jimbo"});
+				//output: Jimbo Doe
+				
+			//row insertion with strict-mode suppresion:
+			db.insertRow("Customers", {firstName: 55, lastName: "Roberts"}, true);
+				//output: John Roberts
+			
+			//databases can be created from existing json strings as well
+			boop = new DFFDB.DatabaseFromString(db.jsonString);
+			
+			//and they behave exactly as above.
+			boop.insertRow("Customers", {firstName : "LOOOOOOOOOOOOOONGNAAAAAAAAAAME"});
+			
+			console.log(db.stringify());
+			console.log(boop.stringify());
+		}
+	</script>
+	<link href='https://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' type='text/css'>
+	<title>dffdb testbed</title>
+</head>
+<body onLoad="init();">
+</body>
