@@ -1,4 +1,4 @@
-DFFDB.Database.createTable(tableName, ColumnData1, ColumnData2(optional), ...(optional)) {
+db.createTable(tableName, ColumnData1, ColumnData2(optional), ...) {
 
 	Creates a table for use in a database.
 
@@ -26,7 +26,7 @@ DFFDB.Database.createTable(tableName, ColumnData1, ColumnData2(optional), ...(op
 					By default, strict mode is off.
 					
 				
-DFFDB.Database.insertRow(tableName_, rowData_, ignoreStrict(optional))
+db.insertRow(tableName_, rowData_)
 
 	Inserts a row of data into a table.
 
@@ -39,7 +39,27 @@ DFFDB.Database.insertRow(tableName_, rowData_, ignoreStrict(optional))
 			For example, if you had a table with two columns, "firstName" and "lastName", your arguments would look like:
 			db.insertRow("myTable", {firstName : "Tim", lastName : "Heidecker");
 			Any columns left undefined will either be set to their specified defaults, or null if no default was set.
-			
-		ignoreStrict:
-			Will insert the default value of a column instead of throwing a fatal error when typeStrict is true and a type conflict occurs.
-			Default: false
+
+db.getRowsFrom(tableName_)
+	
+	Returns a `rows` object containing all rows from a table. To be used with further methods for processing and filtering:
+
+	PARAMATERS:
+		tableName_:
+			The name of the table.
+
+Rows.where(condition_)
+Rows.and(condition_) 
+Rows.not(condition_)
+	
+	Filters out any rows that do not match the pattern. Returns the initial object so filters can be stacked
+	eg. 	db.getRowsFrom("customers").where({"country":"germany"}).not({"name":"Hirschowitz"}); would return every customer from 
+		germany, whose name is not "Hirschowitz"
+
+Rows.stringify()
+	
+	Returns a json string of all the rows that have not been filtered
+
+Rows.Objectify()
+	
+	Returns an object of all the rows that have not been filtered.
