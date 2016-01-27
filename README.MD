@@ -2,20 +2,23 @@
 ####ITS A SINGLE-STRING DATABASE IN JAVASCRIPT
 ![](http://i.imgur.com/9Jiga9H.png)
 
-#####CREATE A DATABASE
+#####Create a database
 `db = new DFFDB.Database("myDB");`
 
-#####DECLARE A TABLE
-`db.createTable("Customers", "firstName", "lastName", ["invoice", 0]);`
+#####Create a table
+`db.createTable("Candidates", "firstName", "lastName", ["chance", 50]);`
 	
-#####THROW IN SOME ROWS
-`db.insertRow("Customers", {firstName : "Donald", lastName : "Trump", invoice : 100000000});`
+#####Instert data into table
+`db.insertRow("Candidates", {firstName : "Donald", lastName : "Trump", chance : 0});`
+`db.insertRow("Candidates", {firstName : "Bernie", lastName : "Sanders", chance : 100});`
+`db.insertRow("Candidates", {firstName : "Hillary", lastName : "Clinton"});`
 
-#####QUERY YOUR DATA
-`todo`
+#####Get all data from a table as an array of objects
+`db.getRowsFrom("Candidates").objectify();`
 
-#####UPDATE YOUR ROWS
-`todo`
+#####Filter rows from said array
+`db.getRowsFrom("Candidates").where({"firstName":"Bernie"}).objectify();`
+`db.getRowsFrom("Candidates").not({"firstName":"Hillary"}).objectify();`
 
 #####DELETE YOUR ROWS
 `todo`
