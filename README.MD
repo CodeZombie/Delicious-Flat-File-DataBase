@@ -1,10 +1,14 @@
 # DELICIOUS FLAT FILE DATABASE
 #### ITS A SINGLE-STRING DATABASE
-![](http://i.imgur.com/9Jiga9H.png)
 
+## A WHAT??
+Its a database system that stores its data as a single string. This is useful for several purposes, including front-end applications that may need to store complex data in LocalStorage.
+DFFDB provides a very simple interface for creating, modifying and querying your data.
+
+## HOW DO I USE IT?? 
 
 #### Create a database
-`db = new DFFDB.Database("myDB");`
+` db = new DFFDB.Database("myDB"); `
 
 #### Create a table
 `db.createTable("Candidates", "firstName", "lastName", ["chance", 50]);`
